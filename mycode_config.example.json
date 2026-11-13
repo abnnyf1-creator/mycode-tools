@@ -1,0 +1,136 @@
+{
+  "projects_root": "D:/Projects",
+  "scanner_version": 2,
+  "scanned_at": "2026-11-09T02:36:16.522Z",
+  "toolchain": {
+    "flutter": "D:/Projects/devDependencies/flutter/bin/flutter.bat",
+    "msysBash": "C:/msys64/usr/bin/bash.exe",
+    "cmake": "C:/msys64/mingw64/bin/cmake.exe",
+    "godot": null,
+    "python": "C:/Python312/python.exe",
+    "node": "C:/Program Files/nodejs/node.exe",
+    "npm": "C:/Program Files/nodejs/npm.cmd",
+    "cargo": null,
+    "go": null,
+    "dotnet": null,
+    "gradle": null,
+    "java": null,
+    "ideExe": null
+  },
+  "projects": [
+    {
+      "id": "DemoFlutterApp",
+      "name": "DemoFlutterApp",
+      "tech": "flutter",
+      "platform": "windows",
+      "path": "D:/Projects/DemoFlutterApp",
+      "structure": [
+        "pubspec.yaml",
+        "lib/main.dart",
+        "windows/CMakeLists.txt",
+        "docs"
+      ],
+      "functions": [
+        {
+          "key": "launch",
+          "label": "源码启动",
+          "type": "run",
+          "cmd": "call \"D:\\\\Projects\\devDependencies\\flutter\\bin\\flutter.bat\" run -d windows",
+          "evidence": "pubspec.yaml（demo_app）+ windows/CMakeLists.txt + 工具链 D:/Projects/devDependencies/flutter/bin/flutter.bat"
+        },
+        {
+          "key": "build",
+          "label": "打包分发",
+          "type": "run",
+          "cmd": "call \"D:\\\\Projects\\devDependencies\\flutter\\bin\\flutter.bat\" build windows --release",
+          "evidence": "pubspec.yaml + windows/CMakeLists.txt"
+        },
+        {
+          "key": "docs",
+          "label": "文档 / 官网资料",
+          "type": "open",
+          "path": "D:/Projects/DemoFlutterApp/docs",
+          "evidence": "docs/ 目录"
+        }
+      ]
+    },
+    {
+      "id": "DemoCppApp",
+      "name": "DemoCppApp",
+      "tech": "cmake_cpp",
+      "path": "D:/Projects/DemoCppApp",
+      "structure": [
+        "CMakeLists.txt",
+        "tools/build.sh",
+        "tools/run.sh",
+        "docs"
+      ],
+      "functions": [
+        {
+          "key": "launch",
+          "label": "源码启动",
+          "type": "run",
+          "cmd": "\"C:\\msys64\\usr\\bin\\bash.exe\" -lc \"cd '/d/Projects/DemoCppApp' && ./tools/run.sh\"",
+          "evidence": "项目自带 tools/run.sh + 工具链 C:\\msys64\\usr\\bin\\bash.exe"
+        },
+        {
+          "key": "build",
+          "label": "打包分发",
+          "type": "run",
+          "cmd": "\"C:\\msys64\\usr\\bin\\bash.exe\" -lc \"cd '/d/Projects/DemoCppApp' && ./tools/build.sh\"",
+          "evidence": "项目自带 tools/build.sh"
+        }
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "id": "demo-server",
+      "name": "演示服务器",
+      "host": "203.0.113.10",
+      "user": "deploy",
+      "port": 22,
+      "type": "ssh",
+      "key": "D:\\\\Projects\\DemoCppApp\\deploy\\keys\\id_ed25519",
+      "evidence": "DemoCppApp/deploy/MIGRATION_RUNBOOK.md（示例数据，请改成自己的）",
+      "notes": "host / user / key 请替换为真实值；私钥不要提交到仓库。",
+      "functions": [
+        {
+          "key": "status",
+          "label": "查看状态",
+          "type": "run",
+          "cmd": "systemctl is-active demo-service",
+          "evidence": "DemoCppApp/deploy/deploy_prefix.sh"
+        },
+        {
+          "key": "logs",
+          "label": "查看日志",
+          "type": "run",
+          "cmd": "tail -n 50 /opt/demo/logs/app.err.log",
+          "evidence": "DemoCppApp/deploy/deploy_prefix.sh"
+        },
+        {
+          "key": "deploy",
+          "label": "部署",
+          "type": "note",
+          "text": "部署脚本在服务器端执行；请先在 SSH 终端里确认备份与 staged 文件。",
+          "evidence": "DemoCppApp/deploy/deploy_prefix.sh"
+        }
+      ]
+    }
+  ],
+  "admin_sites": [
+    {
+      "id": "demo-admin",
+      "name": "演示 · 管理后台",
+      "url": "https://example.com/admin/",
+      "note": "示例地址，请改成自己的后台入口"
+    },
+    {
+      "id": "demo-site",
+      "name": "演示 · 官网",
+      "url": "https://example.com/",
+      "note": "示例地址，请改成自己的官网"
+    }
+  ]
+}

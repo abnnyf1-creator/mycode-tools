@@ -1,0 +1,93 @@
+{
+  "name": "mycode-tools",
+  "displayName": "MyCode 开发工具",
+  "description": "项目启动 / 打包分发 / 官网维护 / 服务器运维 / 会员后台，集中在一个侧边栏面板。",
+  "version": "1.0.0",
+  "publisher": "creatoride",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.145.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:mycodeTools.panel"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mycodeTools",
+          "title": "MyCode 开发工具",
+          "icon": "media/mycode.svg"
+        }
+      ]
+    },
+    "views": {
+      "mycodeTools": [
+        {
+          "type": "webview",
+          "id": "mycodeTools.panel",
+          "name": "开发工具",
+          "contextualTitle": "MyCode 开发工具"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "mycodeTools.rescan",
+        "title": "MyCode: 重新探测项目结构",
+        "icon": "$(search)"
+      },
+      {
+        "command": "mycodeTools.refresh",
+        "title": "MyCode: 刷新配置",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mycodeTools.editConfig",
+        "title": "MyCode: 编辑配置"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "mycodeTools.rescan",
+          "when": "view == mycodeTools.panel",
+          "group": "navigation"
+        },
+        {
+          "command": "mycodeTools.refresh",
+          "when": "view == mycodeTools.panel",
+          "group": "navigation"
+        },
+        {
+          "command": "mycodeTools.editConfig",
+          "when": "view == mycodeTools.panel"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "MyCode 开发工具",
+      "properties": {
+        "mycodeTools.configPath": {
+          "type": "string",
+          "default": "",
+          "description": "自定义 mycode_config.json 路径；留空则使用扩展数据目录下的配置文件。"
+        },
+        "mycodeTools.projectsRoot": {
+          "type": "string",
+          "default": "",
+          "description": "项目根目录。「重新探测项目结构」会扫描这个目录下所有项目；留空时使用用户目录下的 Projects。"
+        },
+        "mycodeTools.autoDetect": {
+          "type": "boolean",
+          "default": true,
+          "description": "监听项目根目录，新建/删除项目文件夹时自动探测并更新面板（不会覆盖你对已有项目命令的手工修改）。"
+        }
+      }
+    }
+  }
+}
